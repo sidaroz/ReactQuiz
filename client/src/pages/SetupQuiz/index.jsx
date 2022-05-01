@@ -9,6 +9,7 @@ const [options, setOptions] = useState(null); //refers to the category options f
 const [questionCategory, setQuestionCategory] = useState("");
 const [questionDifficulty, setQuestionDifficulty] =  useState("");
 const [numberOfQuestions, setNumberOfQuestions] = useState(0);
+const [questionType, setQuestionType] = useState("");
 
 //useEffect hook with fetch of the categories from the API endpoint
 useEffect(()=> {
@@ -23,6 +24,9 @@ fetch(apiUrl)
 
 },[setOptions])
 
+
+//functions to handler the events and update the state
+
 const handleCategoryChoice = event => {
   setQuestionCategory(event.target.value) 
 }
@@ -34,6 +38,13 @@ const handleDifficultyChange = event => {
 const handleNumberOfQuestions = event => {
   setNumberOfQuestions(event.target.value)
 }
+
+const handleTypeChange = event => {
+  setQuestionType(event.target.value)
+}
+
+
+// -----JSX Interface------
 
 return (
 
@@ -89,6 +100,27 @@ return (
           </select>
 </div>
 
+{/* ------Select Type of question------ */}
+
+
+<div>
+      <h2>Select Question Type:</h2>
+
+          <select value={questionType} onChange={handleTypeChange}>
+
+            <option value="" key="type-0">All</option>
+            <option value="multiple" key="type-1">Multiple Choice</option>
+            <option value="boolean" key="type-2">True/False</option>
+
+          </select>
+</div>
+{/* ------Buttons Section------ */}
+
+
+<div className='setquiz-buttons'>
+<button>Start Quiz</button> <br/>
+<button>Start multiple players Quiz</button>
+</div>
 
 
 </main>
