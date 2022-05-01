@@ -10,6 +10,7 @@ const [questionCategory, setQuestionCategory] = useState("");
 const [questionDifficulty, setQuestionDifficulty] =  useState("");
 const [numberOfQuestions, setNumberOfQuestions] = useState(0);
 const [questionType, setQuestionType] = useState("");
+const [loading, setLoading] = useState(false);
 
 //useEffect hook with fetch of the categories from the API endpoint
 useEffect(()=> {
@@ -25,7 +26,7 @@ fetch(apiUrl)
 },[setOptions])
 
 
-//functions to handler the events and update the state
+//functions to handle the events and update the state
 
 const handleCategoryChoice = event => {
   setQuestionCategory(event.target.value) 
@@ -46,6 +47,7 @@ const handleTypeChange = event => {
 
 // -----JSX Interface------
 
+if (!loading){
 return (
 
 <>
@@ -128,6 +130,9 @@ return (
 </>
 )
 
+} else {
+  <p>LOADING....</p>
+}
 
 
 }
