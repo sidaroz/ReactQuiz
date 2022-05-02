@@ -5,7 +5,7 @@ import './style.css'
 
 function SetupQuiz() {
 const [userName, setUserName] = useState("");
-const [options, setOptions] = useState(null); //refers to the category options fetch
+const [options, setOptions] = useState(null); 
 const [questionCategory, setQuestionCategory] = useState("");
 const [questionDifficulty, setQuestionDifficulty] =  useState("");
 const [numberOfQuestions, setNumberOfQuestions] = useState(0);
