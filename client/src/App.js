@@ -2,9 +2,9 @@
 import {Routes, Route} from 'react-router-dom'
 import Home from './pages/Home/index'
 import NavBar from './components/NavBar/Index';
-import './App.css';
 import SetupQuiz from './pages/SetupQuiz';
 import QuizBoard from './pages/QuizBoard/Index';
+import './App.css';
 
 function App() {
   return (
