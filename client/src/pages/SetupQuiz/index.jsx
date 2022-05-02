@@ -26,23 +26,33 @@ fetch(apiUrl)
 
 },[setOptions])
 
+const dispatch = useDispatch();
 
 //functions to handle the events and update the state
 
 const handleCategoryChoice = event => {
-  setQuestionCategory(event.target.value) 
-}
+  dispatch({
+    
+    type: 'CHANGED_CATEGORY',
+    value: event.target.value
+})
 
 const handleDifficultyChange = event => {
   setQuestionDifficulty(event.target.value);
 }
 
 const handleNumberOfQuestions = event => {
-  setNumberOfQuestions(event.target.value)
+  dispatch({
+    type: "CHANGED_NUMBER",
+    value:event.target.value
+  })
+ 
 }
 
 const handleTypeChange = event => {
-  setQuestionType(event.target.value)
+  dispatch({
+    type: "CHANGED_TYPE",
+    value:event.target.value
 }
 
 const addUserName = event => {
