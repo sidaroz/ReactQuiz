@@ -4,7 +4,7 @@ import './style.css'
 
 
 function SetupQuiz() {
-
+const [userName, setUserName] = useState("");
 const [options, setOptions] = useState(null); //refers to the category options fetch
 const [questionCategory, setQuestionCategory] = useState("");
 const [questionDifficulty, setQuestionDifficulty] =  useState("");
@@ -44,6 +44,10 @@ const handleTypeChange = event => {
   setQuestionType(event.target.value)
 }
 
+const addUserName = event => {
+  setUserName(event.target.value)
+}
+
 
 // -----JSX Interface------
 
@@ -52,6 +56,8 @@ return (
 
 <>
 <main className='quiz-setup-container'>
+<h2>User name:</h2>
+  <input type="text" onChange={addUserName} />
 
 
 {/* ------Select Category DropDown------ */}
@@ -90,15 +96,15 @@ return (
 
           <select value={numberOfQuestions} onChange={handleNumberOfQuestions}>
             <option value="1" key="amount-1">1</option>
-            <option value="2" key="amount-1">2</option>
-            <option value="3" key="amount-4">3</option>
-            <option value="4" key="amount-3">4</option>  
-            <option value="5" key="amount-3">5</option>  
-            <option value="6" key="amount-3">6</option>  
-            <option value="7" key="amount-3">7</option>  
-            <option value="8" key="amount-3">8</option>  
-            <option value="9" key="amount-3">9</option>  
-            <option value="10" key="amount-3">10</option>  
+            <option value="2" key="amount-2">2</option>
+            <option value="3" key="amount-3">3</option>
+            <option value="4" key="amount-4">4</option>  
+            <option value="5" key="amount-5">5</option>  
+            <option value="6" key="amount-6">6</option>  
+            <option value="7" key="amount-7">7</option>  
+            <option value="8" key="amount-8">8</option>  
+            <option value="9" key="amount-9">9</option>  
+            <option value="10" key="amount-10">10</option>  
           </select>
 </div>
 
