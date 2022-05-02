@@ -1,16 +1,17 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 import './style.css'
 
 
 function SetupQuiz() {
-const [userName, setUserName] = useState("");
-const [options, setOptions] = useState(null); 
-const [questionCategory, setQuestionCategory] = useState("");
-const [questionDifficulty, setQuestionDifficulty] =  useState("");
-const [numberOfQuestions, setNumberOfQuestions] = useState(0);
-const [questionType, setQuestionType] = useState("");
-const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [options, setOptions] = useState(null);   
+const loading = useSelector(state => state.options.loading);
+const questionCategory = useSelector(state => state.options.loading);
+const questionDifficulty =  useSelector(state => state.options.question_difficulty);
+const numberOfQuestions = useSelector(state => state.options.amount_of_questions);
+const questionType = useSelector(state => state.options.question_type);
 
 //useEffect hook with fetch of the categories from the API endpoint
 useEffect(()=> {
