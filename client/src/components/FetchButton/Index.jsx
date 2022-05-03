@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function FetchButton(props) {
   const questionCategory = useSelector(
@@ -28,6 +29,8 @@ function FetchButton(props) {
     });
   };
 
+  const navigate = useNavigate();
+
   const handleQuery = async () => {
     let apiUrl = `https://opentdb.com/api.php?amount=${numberOfQuestions}`;
 
@@ -45,9 +48,10 @@ function FetchButton(props) {
     await fetch(apiUrl)
       .then((res) => res.json())
       .then((response) => {
-        setQuestions(response.results)
+        setQuestions(response.results);
         setLoading(false);
       });
+    navigate("/quizboard");
   };
 
   return <button onClick={handleQuery}>Start Quiz</button>;

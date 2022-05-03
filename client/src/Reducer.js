@@ -6,10 +6,10 @@ const initState = {
     question_difficulty: ``,
     question_type: ``,
     amount_of_questions: 10,
-    
-  }, questions:[],
-  index: 0,
+  },
+  questions: [],
   score: 0,
+  index: 0,
 };
 
 const Reducer = (state = initState, action) => {
