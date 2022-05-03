@@ -44,42 +44,43 @@ function SetupQuiz() {
   const handleUserNameChoice = (event) => {
     dispatch({
       type: "CHANGED_USERNAME",
-      value: event.target.value,
+      username: event.target.value,
     });
   };
 
   const handleCategoryChoice = (event) => {
     dispatch({
       type: "CHANGED_CATEGORY",
-      value: event.target.value,
+      question_category: event.target.value,
     });
   };
 
   const handleDifficultyChange = (event) => {
+    let difficulty;
+    if (event.target.value === "1") {
+      difficulty = "easy";
+    } else if (event.target.value === "2") {
+      difficulty = "medium";
+    } else if (event.target.value === "3") {
+      difficulty = "hard";
+    }
     dispatch({
-      type: "CHANGE_DIFFICULTY",
-      value: event.target.value,
+      type: "CHANGED_DIFFICULTY",
+      question_difficulty: difficulty,
     });
   };
 
   const handleNumberOfQuestions = (event) => {
     dispatch({
       type: "CHANGED_NUMBER",
-      value: event.target.value,
+      amount_of_questions: event.target.value,
     });
   };
 
   const handleTypeChange = (event) => {
     dispatch({
       type: "CHANGED_TYPE",
-      value: event.target.value,
-    });
-  };
-
-  const addUserName = (event) => {
-    dispatch({
-      type: "ADDED_NAME",
-      value: event.target.value,
+      question_type: event.target.value,
     });
   };
 
