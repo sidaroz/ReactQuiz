@@ -150,7 +150,7 @@ function SetupQuiz() {
         {/* ------Select number of Questions------ */}
 
         <div>
-          <h2>Number o questions:</h2>
+          <h2>Number of questions:</h2>
 
           <select value={numberOfQuestions} onChange={handleNumberOfQuestions}>
             <option value="1" key="amount-1">
