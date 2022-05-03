@@ -4,18 +4,27 @@ import {useSelector, useDispatch} from 'react-redux'
 import './style.css'
 
 
-function SetupQuiz() {
-  const [userName, setUserName] = useState("");
-  const [options, setOptions] = useState(null);   
+function SetupQuiz(){
+// const userName = useSelector(state => state.option);
+const [options, setOptions] = useState(null);   
 const loading = useSelector(state => state.options.loading);
-const questionCategory = useSelector(state => state.options.loading);
+const questionCategory = useSelector(state => state.options.question_category);
 const questionDifficulty =  useSelector(state => state.options.question_difficulty);
 const numberOfQuestions = useSelector(state => state.options.amount_of_questions);
 const questionType = useSelector(state => state.options.question_type);
 
+const dispatch = useDispatch();
 //useEffect hook with fetch of the categories from the API endpoint
 useEffect(()=> {
 const apiUrl = 'https://opentdb.com/api_category.php'
+
+const handleLoadingChange = value => {
+dispatch({
+type: "CHANGED_LOADING",
+loading: value
+})
+}
+handleLoadingChange(true);
 
 fetch(apiUrl)
 .then((res) => res.json())
@@ -24,9 +33,8 @@ fetch(apiUrl)
   setOptions(response.trivia_categories)
 })
 
-},[setOptions])
+},[setOptions, dispatch])
 
-const dispatch = useDispatch();
 
 //functions to handle the events and update the state
 
@@ -36,9 +44,10 @@ const handleCategoryChoice = event => {
     type: 'CHANGED_CATEGORY',
     value: event.target.value
 })
+}
 
 const handleDifficultyChange = event => {
-  setQuestionDifficulty(event.target.value);
+  // setQuestionDifficulty(event.target.value);
 }
 
 const handleNumberOfQuestions = event => {
@@ -53,27 +62,32 @@ const handleTypeChange = event => {
   dispatch({
     type: "CHANGED_TYPE",
     value:event.target.value
+})
 }
 
-const addUserName = event => {
-  setUserName(event.target.value)
+const addUserName = event => { 
+  dispatch({
+  type: "ADDED_NAME",
+  value: event.target.value
+})
 }
+// --------------------end of action producers------------------
 
-
-// -----JSX Interface------
 
 if (!loading){
+
 return (
 
-<>
-<main className='quiz-setup-container'>
-<h2>User name:</h2>
-  <input type="text" onChange={addUserName} />
+<div className='main-container'>
 
+   <div>
+     <h2>User name:</h2>
+     <input type="text" onChange={addUserName} />
+   </div>
 
 {/* ------Select Category DropDown------ */}
 
-<div>
+    <div>
           <h2>Quiz Category:</h2>
           <select value={questionCategory} onChange={handleCategoryChoice}>
     
@@ -86,13 +100,13 @@ return (
               ))}
 
           </select>
-        </div>
+    </div>
 
 {/* ------Select Difficulty Range Slider------ */}
         
 
-<h2>Difficulty level:</h2>
 <div className='range-slider-container'>
+<h2>Difficulty level:</h2>
       <div className='slider-wraper'>
             <input type='range'  min='1' max='3'  className='slider'/>
             <span className='demo'> 0</span>
@@ -141,19 +155,12 @@ return (
 <button>Start multiple players Quiz</button>
 </div>
 
-
-</main>
-
-</>
+</div>
 )
-
-} else {
-  <p>LOADING....</p>
+} return( 
+<p>LOADING....</p>
+)
 }
-
-
-}
-
 
 
 export default SetupQuiz
