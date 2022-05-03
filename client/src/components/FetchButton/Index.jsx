@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 function FetchButton(props) {
     
     
-    const loading = useSelector(state => state.options.loading);
+    
     const questionCategory = useSelector(state => state.options.loading);
     const questionDifficulty =  useSelector(state => state.options.question_difficulty);
     const numberOfQuestions = useSelector(state => state.options.amount_of_questions);

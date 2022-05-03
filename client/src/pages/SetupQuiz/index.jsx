@@ -46,9 +46,13 @@ const handleCategoryChoice = event => {
 })
 }
 
-const handleDifficultyChange = event => {
-  // setQuestionDifficulty(event.target.value);
-}
+const handleDifficultyChange = (event) => {
+  
+  dispatch({
+    type: "CHANGE_DIFFICULTY",
+    value: event.target.value,
+  });
+};
 
 const handleNumberOfQuestions = event => {
   dispatch({
@@ -119,8 +123,14 @@ return (
 <div className='range-slider-container'>
 <h2>Difficulty level:</h2>
       <div className='slider-wraper'>
-            <input type='range'  min='1' max='3' className='slider'onChange={getSliderValue}/>
-            <span className='demo'>Hard</span>
+            < input type='range' defaultValue='1' step='1' list='marks'className='slider'min='1' max='3' onChange={getSliderValue} onChange={handleDifficultyChange}/> 
+            <datalist id="marks">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            </datalist>
+        
+            <span className='demo'>Easy</span>
             
       </div>
 </div>
