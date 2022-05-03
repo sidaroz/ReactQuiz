@@ -6,7 +6,7 @@ const initState = {
     question_difficulty: ``,
     question_type: ``,
     amount_of_questions: 10,
-  },
+  }, questions:[]
 };
 
 const Reducer = (state = initState, action) => {
@@ -60,6 +60,11 @@ const Reducer = (state = initState, action) => {
           amount_of_questions: action.amount_of_questions,
         },
       };
+      case "SET_QUESTIONS":
+      return {
+        ...state,
+        questions: action.questions
+      }
     default:
       return state;
   }
