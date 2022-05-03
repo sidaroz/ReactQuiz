@@ -46,9 +46,13 @@ const handleCategoryChoice = event => {
 })
 }
 
-const handleDifficultyChange = event => {
-  // setQuestionDifficulty(event.target.value);
-}
+const handleDifficultyChange = (event) => {
+  
+  dispatch({
+    type: "CHANGE_DIFFICULTY",
+    value: event.target.value,
+  });
+};
 
 const handleNumberOfQuestions = event => {
   dispatch({
@@ -70,6 +74,17 @@ const addUserName = event => {
   type: "ADDED_NAME",
   value: event.target.value
 })
+}
+
+function getSliderValue() {
+  const rangeValue = document.querySelector('.slider').value;
+  if (rangeValue === "1") {
+  document.querySelector(".demo").textContent = "Easy";
+  } else if (rangeValue === "2") {
+    document.querySelector(".demo").textContent = "Medium";
+  } else if (rangeValue === "3"){
+    document.querySelector(".demo").textContent = "Hard";
+  }
 }
 // --------------------end of action producers------------------
 
@@ -108,8 +123,15 @@ return (
 <div className='range-slider-container'>
 <h2>Difficulty level:</h2>
       <div className='slider-wraper'>
-            <input type='range'  min='1' max='3'  className='slider'/>
-            <span className='demo'> 0</span>
+            < input type='range' defaultValue='1' step='1' list='marks'className='slider'min='1' max='3' onChange={getSliderValue} onChange={handleDifficultyChange}/> 
+            <datalist id="marks">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            </datalist>
+        
+            <span className='demo'>Easy</span>
+            
       </div>
 </div>
 {/* rembember the value='0' */}
