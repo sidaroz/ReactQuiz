@@ -37,6 +37,13 @@ fetch(apiUrl)
 
 
 //functions to handle the events and update the state
+const handleUserNameChoice = event => {
+  dispatch({
+    type: 'CHANGED_USERNAME',
+    value: event.target.value
+  })
+}
+
 
 const handleCategoryChoice = event => {
   dispatch({
@@ -96,8 +103,8 @@ return (
 <div className='main-container'>
 
    <div>
-     <h2>User name:</h2>
-     <input type="text" onChange={addUserName} />
+     <h2>Username:</h2>
+     <input type="text" onChange={handleUserNameChoice} />
    </div>
 
 {/* ------Select Category DropDown------ */}
@@ -137,6 +144,7 @@ return (
 {/* rembember the value='0' */}
 
 {/* ------Select number of Questions------ */}
+
 
 <div>
           <h2>Number o questions:</h2>

@@ -1,6 +1,6 @@
 const initState = {
     options: {
-    
+      username: ``,
       loading: false,
       question_category: ``,
       question_difficulty: ``,
@@ -17,6 +17,14 @@ const initState = {
           options: {
             ...state.options,
             loading: action.value
+          }
+        }
+        case"CHANGED_USERNAME":
+        return {
+          ...state,
+          options: {
+            ...state.options,
+            username: action.value
           }
         }
       case "CHANGED_CATEGORY":
