@@ -12,6 +12,8 @@ function FetchButton(props) {
     (state) => state.options.amount_of_questions
   );
   const questionType = useSelector((state) => state.options.question_type);
+
+
   const dispatch = useDispatch();
   const setLoading = (value) => {
     dispatch({
@@ -43,8 +45,8 @@ function FetchButton(props) {
     await fetch(apiUrl)
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
-        // this is where we will set questions in the state using an action
+        setQuestions(response.results)
+        setLoading(false);
       });
   };
 
