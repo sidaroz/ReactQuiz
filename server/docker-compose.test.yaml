@@ -1,0 +1,26 @@
+services:
+  server:
+    container_name: project_test_api
+    environment: 
+      - PGUSER=zoomies
+      - PGHOST=db
+      - PGPASSWORD=password
+      - PGDATABASE=zoomies
+      - PGPORT=5432
+      - NODE_ENV=test
+    depends_on:
+      - db
+    tty: true
+  db:
+    container_name: project_test_db
+    volumes:
+      - "test_db:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_DB=zoomies
+      - POSTGRES_USER=zoomies
+      - POSTGRES_PASSWORD=password
+volumes:
+  test_db:
+networks: 
+  default:
+    name: project_test
