@@ -1,14 +1,12 @@
-const express = require ('express')
-const server = express.Router();
+const express = require ('express');
+const cors = require('cors');
+const server = express();
+server.use(cors());
+server.use(express.json());
+const usersRoutes = require('./routes/userRoutes')
 
-const routes = require("./routes")
+server.use('/users', usersRoutes);
 
-// const userRoutes = require("./routes/usersRoutes");
-// const habitRoutes = require("./routes/habitRoutes");
-
-// server.use("/users", userRoutes);
-// server.use("/habits", habitRoutes);
-
-server.get("/", (req, res) => res.json({ message: "Welcome" }));
+server.get("/", (req, res) => res.json({ message: "Welcome to our quiz" }));
 
 module.exports = server;
