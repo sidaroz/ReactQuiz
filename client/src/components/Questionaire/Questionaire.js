@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Questionaire.css";
+
 const decodeHTML = function (html) {
   const text = document.createElement("textarea");
   text.innerHTML = html;
@@ -12,10 +13,11 @@ function Questionaire() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [options, setOptions] = useState([]);
-  const [timer, setTimer] = useState(20);
+  const [showAnswers, setShowAnswers] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
 
-  const username = useSelector((state) => state.options.username);
-  const score = useSelector((state) => state.score);
+  let username = useSelector((state) => state.options.username);
+  let score = useSelector((state) => state.score);
   const encodedQuestions = useSelector((state) => state.questions);
   const questionIndex = useSelector((state) => state.index);
 
@@ -39,6 +41,37 @@ function Questionaire() {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
+  const [timeLeft, setTimeLeft] = useState(5);
+  useEffect(() => {
+    // exit early when we reach 0
+    if (timeLeft === 0) {
+      setAnswerSelected(true);
+      setSelectedAnswer(undefined);
+      setTimeout(() => {
+        setAnswerSelected(false);
+        setShowAnswers(false);
+        setTimeLeft(5);
+        dispatch({
+          type: "SET_INDEX",
+          index: questionIndex + 1,
+        });
+      }, 900);
+    }
+
+    // save intervalId to clear the interval when the
+    // component re-renders
+    const intervalId = setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+
+    // clear interval on re-render to avoid memory leaks
+    return () => {
+      clearInterval(intervalId);
+    };
+    // add timeLeft as a dependency to re-rerun the effect
+    // when we update it
+  }, [timeLeft]);
+
   useEffect(() => {
     if (!question) {
       return;
@@ -53,26 +86,55 @@ function Questionaire() {
     setOptions(answers);
   }, [question]);
 
+  async function submitScore() {
+    let userDetails = {
+      thisUsername: username,
+      thisScore: score,
+    };
+    console.log(userDetails);
+    try {
+      options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userDetails),
+      };
+      const resp = await fetch("https://hookb.in/mZGZPe8ndjILnrqM8M0L");
+      const data = await resp.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleAnswer = (e) => {
-    setAnswerSelected(true);
-    setTimer(20);
-    setSelectedAnswer(e.target.textContent);
-    if (e.target.textContent === correctAnswer) {
-      dispatch({
-        type: "SET_SCORE",
-        score: score + 1,
-      });
-    }
-    if (questionIndex + 1 <= questions.length) {
-      setTimeout(() => {
-        setAnswerSelected(false);
-        setSelectedAnswer(null);
+    if (!showAnswers) {
+      setAnswerSelected(true);
+      setSelectedAnswer(e.target.textContent);
+      if (e.target.textContent === correctAnswer) {
         dispatch({
-          type: "SET_INDEX",
-          index: questionIndex + 1,
+          type: "SET_SCORE",
+          score: score + 1,
         });
-      }, 1500);
+      }
+      if (questionIndex + 1 <= questions.length) {
+        setTimeout(() => {
+          setAnswerSelected(false);
+          setSelectedAnswer(null);
+          setShowAnswers(false);
+          setTimeLeft(5);
+          dispatch({
+            type: "SET_INDEX",
+            index: questionIndex + 1,
+          });
+        }, 1500);
+      }
+      // Submits score and username when game is finished
+      if (questionIndex + 1 === questions.length) {
+        submitScore();
+      }
     }
+
+    setShowAnswers(true);
   };
 
   const getClass = (option) => {
@@ -84,6 +146,9 @@ function Questionaire() {
     }
     if (selectedAnswer !== correctAnswer) {
       return "selected";
+    }
+    if (selectedAnswer === undefined) {
+      return "";
     }
   };
 
@@ -97,9 +162,11 @@ function Questionaire() {
   return (
     <div className="question-grid">
       <div className="question-header">
-        <p>Question: {questionIndex + 1}</p>
+        <p>
+          Question: {questionIndex + 1} / {questions.length}
+        </p>
         <h2>{question.question}</h2>
-        <h3>{timer}</h3>
+        <h2>{timeLeft}</h2>
       </div>
       <div className="answer-btn-grid">
         {options.map((answer, i) => (

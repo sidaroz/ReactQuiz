@@ -11,16 +11,32 @@ function SetupQuiz() {
   const questionCategory = useSelector(
     (state) => state.options.question_category
   );
-  const questionDifficulty = useSelector(
-    (state) => state.options.question_difficulty
-  );
   const numberOfQuestions = useSelector(
     (state) => state.options.amount_of_questions
   );
   const questionType = useSelector((state) => state.options.question_type);
 
   const dispatch = useDispatch();
+
+  const refreshSettings = () => {
+    dispatch({
+      type: "SET_QUESTIONS",
+      questions: [],
+    });
+    dispatch({
+      type: "SET_SCORE",
+      score: 0,
+    });
+    dispatch({
+      type: "CHANGED_USERNAME",
+      username: "",
+    });
+  };
   //useEffect hook with fetch of the categories from the API endpoint
+  useEffect(() => {
+    refreshSettings();
+  }, []);
+
   useEffect(() => {
     const apiUrl = "https://opentdb.com/api_category.php";
 
@@ -42,9 +58,14 @@ function SetupQuiz() {
 
   //functions to handle the events and update the state
   const handleUserNameChoice = (event) => {
+    const lowerUsername = event.target.value.toLowerCase();
+    const fixedUsername = lowerUsername.replace(
+      lowerUsername[0],
+      lowerUsername[0].toUpperCase()
+    );
     dispatch({
       type: "CHANGED_USERNAME",
-      username: event.target.value,
+      username: fixedUsername,
     });
   };
 
@@ -102,7 +123,7 @@ function SetupQuiz() {
       <div className="main-container">
         <div>
           <h2>Username:</h2>
-          <input type="text" onChange={handleUserNameChoice} />
+          <input type="text" onChange={handleUserNameChoice} required />
         </div>
 
         {/* ------Select Category DropDown------ */}
@@ -125,6 +146,7 @@ function SetupQuiz() {
 
         <div className="range-slider-container">
           <h2>Difficulty level:</h2>
+          <span className="demo">Easy</span>
           <div className="slider-wraper">
             <input
               type="range"
@@ -141,8 +163,6 @@ function SetupQuiz() {
               <option value="2"></option>
               <option value="3"></option>
             </datalist>
-
-            <span className="demo">Easy</span>
           </div>
         </div>
         {/* rembember the value='0' */}
