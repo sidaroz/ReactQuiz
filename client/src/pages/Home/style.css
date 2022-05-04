@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to top left, #c29ad9, #a857f3);
+  text-align: center;
+  height: 100vh;
+}
+
+.home-title {
+  margin-top: 10%;
+  margin-bottom: 30px;
+  color: white;
+  font-size: 50px;
+}
+
+.btn-home:first-child {
+  margin-right: 20px;
+}
+
+.btn-home {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #753998;
+}
+
+.btn-home:hover {
+  background-color: #d3a4ee;
+  color: white;
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import "./Questionaire.css";
 
 const decodeHTML = function (html) {
@@ -12,11 +13,11 @@ function Questionaire() {
   const [answerSelected, setAnswerSelected] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [questions, setQuestions] = useState([]);
-  const [options, setOptions] = useState([]);
+  const [answerOptions, setAnswerOptions] = useState([]);
   const [showAnswers, setShowAnswers] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
 
-  let username = useSelector((state) => state.options.username);
+  const username = useSelector((state) => state.options.username);
   let score = useSelector((state) => state.score);
   const encodedQuestions = useSelector((state) => state.questions);
   const questionIndex = useSelector((state) => state.index);
@@ -83,24 +84,27 @@ function Questionaire() {
       question.correct_answer
     );
 
-    setOptions(answers);
+    setAnswerOptions(answers);
   }, [question]);
 
   async function submitScore() {
     let userDetails = {
-      thisUsername: username,
-      thisScore: score,
+      username: username,
+      score: score,
     };
     console.log(userDetails);
     try {
-      options = {
+      const options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userDetails),
+        mode: "no-cors",
       };
-      const resp = await fetch("https://hookb.in/mZGZPe8ndjILnrqM8M0L");
-      const data = await resp.json();
-      console.log(data);
+      const resp = await fetch(
+        "https://hookb.in/mZGZPe8ndjILnrqM8M0L",
+        options
+      );
+      console.log(resp);
     } catch (error) {
       console.log(error);
     }
@@ -128,9 +132,10 @@ function Questionaire() {
           });
         }, 1500);
       }
-      // Submits score and username when game is finished
       if (questionIndex + 1 === questions.length) {
-        submitScore();
+        setTimeout(() => {
+          submitScore();
+        }, 2000);
       }
     }
 
@@ -169,7 +174,7 @@ function Questionaire() {
         <h2>{timeLeft}</h2>
       </div>
       <div className="answer-btn-grid">
-        {options.map((answer, i) => (
+        {answerOptions.map((answer, i) => (
           <button key={i} onClick={handleAnswer} className={getClass(answer)}>
             {answer}
           </button>
