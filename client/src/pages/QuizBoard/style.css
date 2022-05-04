@@ -1,0 +1,57 @@
+*{
+padding: 0;
+margin:0;
+box-sizing: border-box;
+
+}
+
+
+.quiz-container{
+min-height: 300px;
+width: 30%;
+background-color: lightgrey;
+margin: 8rem auto;
+text-align: center;
+border-radius: 10px;
+padding-top: 1rem;
+
+}
+
+.quiz-question{
+font-size: 3.5rem;
+margin-bottom: 1rem;
+
+}
+.quiz-options{
+margin-top: 1rem;
+margin-bottom: 2rem;
+
+}
+
+
+
+.quiz-options li{
+border-radius: 0.5rem;
+font-weight: 600;
+margin: 1rem 1rem;
+cursor: pointer;
+border: solid 3px chartreuse;
+background-color: chartreuse;
+box-shadow: 0 4px 0 0 chartreuse;
+
+}
+
+.answer{
+font-size: 2rem;
+list-style: none;
+    
+    }
+.check-answers{
+width: 10rem;
+height: 3rem;
+border-radius: 0.5rem;
+margin-bottom: 2rem;
+font-weight: 600;
+font-size: 1rem;
+
+}
