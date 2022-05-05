@@ -13,7 +13,7 @@ body {
 .home-title {
   margin-top: 10%;
   margin-bottom: 30px;
-  color: white;
+  color: #dccbe6;
   font-size: 50px;
 }
 
@@ -31,4 +31,5 @@ body {
 .btn-home:hover {
   background-color: #d3a4ee;
   color: white;
+  cursor: pointer;
 }

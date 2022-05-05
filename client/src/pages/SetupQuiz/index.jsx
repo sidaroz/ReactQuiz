@@ -122,15 +122,24 @@ function SetupQuiz() {
     return (
       <div className="main-container">
         <div>
-          <h2>Username:</h2>
-          <input type="text" onChange={handleUserNameChoice} required />
+          <h2 className="username-input">Username:</h2>
+          <input
+            className="input-for-user"
+            type="text"
+            onChange={handleUserNameChoice}
+            required
+          />
         </div>
 
         {/* ------Select Category DropDown------ */}
 
         <div>
           <h2>Quiz Category:</h2>
-          <select value={questionCategory} onChange={handleCategoryChoice}>
+          <select
+            className="category"
+            value={questionCategory}
+            onChange={handleCategoryChoice}
+          >
             <option>All</option>
 
             {options &&
@@ -172,7 +181,11 @@ function SetupQuiz() {
         <div>
           <h2>Number of questions:</h2>
 
-          <select value={numberOfQuestions} onChange={handleNumberOfQuestions}>
+          <select
+            className="amount-questions"
+            value={numberOfQuestions}
+            onChange={handleNumberOfQuestions}
+          >
             <option value="1" key="amount-1">
               1
             </option>
@@ -211,7 +224,11 @@ function SetupQuiz() {
         <div>
           <h2>Select Question Type:</h2>
 
-          <select value={questionType} onChange={handleTypeChange}>
+          <select
+            value={questionType}
+            onChange={handleTypeChange}
+            className="question-type"
+          >
             <option value="" key="type-0">
               All
             </option>

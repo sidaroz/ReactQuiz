@@ -159,7 +159,7 @@ function Questionaire() {
 
   if (!question) {
     return (
-      <h1>
+      <h1 className="score-title">
         {username} your score was: {score}
       </h1>
     );
@@ -170,8 +170,8 @@ function Questionaire() {
         <p>
           Question: {questionIndex + 1} / {questions.length}
         </p>
-        <h2>{question.question}</h2>
-        <h2>{timeLeft}</h2>
+        <h2 className="question">{question.question}</h2>
+        <h2 className="timer question">{timeLeft}</h2>
       </div>
       <div className="answer-btn-grid">
         {answerOptions.map((answer, i) => (

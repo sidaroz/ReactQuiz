@@ -2,7 +2,8 @@
   width: 100%;
   padding: 5px 0;
   background-color: #9958be;
-  text-align: center;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .highlight {
@@ -24,5 +25,5 @@ span.highlight::after {
   opacity: 0.5;
   transform: scale(1.2, 1.2) skewX(0deg);
   border-radius: 50%;
-  background: linear-gradient(to top left, #dfcee9, #8f23f3);
+  background: linear-gradient(to top left, #ffffff, #8f23f3);
 }
