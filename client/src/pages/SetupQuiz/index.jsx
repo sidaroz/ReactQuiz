@@ -15,6 +15,7 @@ function SetupQuiz() {
     (state) => state.options.amount_of_questions
   );
   const questionType = useSelector((state) => state.options.question_type);
+  const rangeSlider = document.querySelector(".slider");
 
   const dispatch = useDispatch();
 
@@ -107,12 +108,19 @@ function SetupQuiz() {
 
   function getSliderValue(e) {
     const rangeValue = document.querySelector(".slider").value;
+    const sliderTitle = document.querySelector(".demo");
     if (rangeValue === "1") {
-      document.querySelector(".demo").textContent = "Easy";
+      sliderTitle.textContent = "Easy";
+      sliderTitle.classList.add("easy");
+      sliderTitle.classList.remove("medium");
+      sliderTitle.classList.remove("hard");
     } else if (rangeValue === "2") {
-      document.querySelector(".demo").textContent = "Medium";
+      sliderTitle.textContent = "Medium";
+      sliderTitle.classList.add("medium");
+      sliderTitle.classList.remove("hard");
     } else if (rangeValue === "3") {
-      document.querySelector(".demo").textContent = "Hard";
+      sliderTitle.textContent = "Hard";
+      sliderTitle.classList.add("hard");
     }
     handleDifficultyChange(e);
   }

@@ -12,7 +12,10 @@ function Home() {
         <button className="btn-home" onClick={() => navigate("/setupquiz")}>
           Start a quiz
         </button>
-        <button className="btn-home"> Leaderboards</button>
+        <button className="btn-home" onClick={() => navigate("/leaderboards")}>
+          {" "}
+          Leaderboards
+        </button>
       </div>
     </>
   );

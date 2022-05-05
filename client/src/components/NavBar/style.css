@@ -1,3 +1,8 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 .nav-bar {
   width: 100%;
   padding: 5px 0;
@@ -26,4 +31,16 @@ span.highlight::after {
   transform: scale(1.2, 1.2) skewX(0deg);
   border-radius: 50%;
   background: linear-gradient(to top left, #ffffff, #8f23f3);
+}
+
+a {
+  text-decoration: none;
+  font-size: 20px;
+  margin-top: 2px;
+  margin-right: 10px;
+  color: #dcb9f5;
+}
+
+a:hover {
+  color: white;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import "./Questionaire.css";
+import { useNavigate } from "react-router-dom";
 
 const decodeHTML = function (html) {
   const text = document.createElement("textarea");
@@ -16,12 +16,14 @@ function Questionaire() {
   const [answerOptions, setAnswerOptions] = useState([]);
   const [showAnswers, setShowAnswers] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
+  const navigate = useNavigate();
 
   const username = useSelector((state) => state.options.username);
   let score = useSelector((state) => state.score);
   const encodedQuestions = useSelector((state) => state.questions);
   const questionIndex = useSelector((state) => state.index);
 
+  // This useEffect decodes the questions and answers in readable format.
   useEffect(() => {
     const decodedQuestions = encodedQuestions.map((q) => {
       return {
@@ -42,6 +44,7 @@ function Questionaire() {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
+  // This useEffect sorts out the timer for each question.
   const [timeLeft, setTimeLeft] = useState(5);
   useEffect(() => {
     // exit early when we reach 0
@@ -73,43 +76,31 @@ function Questionaire() {
     // when we update it
   }, [timeLeft]);
 
+  // This sets up the question answers and sorts them in a random order.
   useEffect(() => {
     if (!question) {
       return;
     }
-    let answers = [...question.incorrect_answers];
-    answers.splice(
-      getRandomInt(question.incorrect_answers.length),
-      0,
-      question.correct_answer
-    );
+    if (question.incorrect_answers.length === 1) {
+      const trueAnswers = [
+        ...question.incorrect_answers,
+        question.correct_answer,
+      ];
+      trueAnswers.sort(() => (Math.random() > 0.5 ? 1 : -1));
+      setAnswerOptions(trueAnswers);
+    } else {
+      let answers = [...question.incorrect_answers];
+      answers.splice(
+        getRandomInt(question.incorrect_answers.length),
+        0,
+        question.correct_answer
+      );
 
-    setAnswerOptions(answers);
+      setAnswerOptions(answers);
+    }
   }, [question]);
 
-  async function submitScore() {
-    let userDetails = {
-      username: username,
-      score: score,
-    };
-    console.log(userDetails);
-    try {
-      const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userDetails),
-        mode: "no-cors",
-      };
-      const resp = await fetch(
-        "https://hookb.in/mZGZPe8ndjILnrqM8M0L",
-        options
-      );
-      console.log(resp);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
+  // Function for clicking each button and sending data to store.
   const handleAnswer = (e) => {
     if (!showAnswers) {
       setAnswerSelected(true);
@@ -132,16 +123,22 @@ function Questionaire() {
           });
         }, 1500);
       }
-      if (questionIndex + 1 === questions.length) {
-        setTimeout(() => {
-          submitScore();
-        }, 2000);
-      }
+      // if (questionIndex + 1 === questions.length) {
+      //   setTimeout(() => {
+      //     submitScore();
+      //   }, 2000);
+      // }
     }
 
     setShowAnswers(true);
   };
 
+  // useEffect(() => {
+  //   if (!question) {
+  //     submitScore();
+  //     console.log("this useeffect has run");
+  //   }
+  // }, []);
   const getClass = (option) => {
     if (!answerSelected) {
       return "";
@@ -158,11 +155,7 @@ function Questionaire() {
   };
 
   if (!question) {
-    return (
-      <h1 className="score-title">
-        {username} your score was: {score}
-      </h1>
-    );
+    return navigate("/quizcomplete");
   }
   return (
     <div className="question-grid">

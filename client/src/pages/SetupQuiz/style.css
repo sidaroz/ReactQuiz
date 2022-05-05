@@ -42,3 +42,36 @@ span {
 button {
   margin-left: 10px;
 }
+
+.easy {
+  color: rgb(17, 243, 28);
+}
+.medium {
+  color: yellow;
+}
+.hard {
+  color: rgb(245, 60, 60);
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  height: 10px;
+  width: 14rem;
+  border-radius: 5px;
+  background-image: linear-gradient(
+    to right,
+    rgb(232, 190, 238) 0%,
+    #9958be 80%
+  );
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background-color: rgb(229, 177, 253);
+}
