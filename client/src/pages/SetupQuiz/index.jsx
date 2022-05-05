@@ -99,7 +99,7 @@ function SetupQuiz() {
 
   if (!loading) {
     return (
-      <div className="main-container">
+      <div className="main-container" role='qui'>
         <div>
           <h2>Username:</h2>
           <input type="text" onChange={handleUserNameChoice} />

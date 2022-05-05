@@ -1,10 +1,3 @@
-/* 
-router.get("/username", )
-router.post("/", userScoreController.newQuiz);
-router.get("/:usename", userScoreController.findByUsername);
-router.patch("/entry/:id", userScoreController.updateScore)
-
- */
 describe ('userScore endpoints', () => {
     let api;
     beforeEach(async () => {
@@ -54,7 +47,7 @@ describe ('userScore endpoints', () => {
 
    
     it('should update the users total score and frequency on the leaderboard', async() => {
-        
+        /* router.patch("/entry/:id", userScoreController.updateScore) */
     })
 
 })

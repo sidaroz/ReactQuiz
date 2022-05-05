@@ -9,7 +9,7 @@ import './App.css';
 function App() {
   return (
 <>
-<NavBar />
+<NavBar role='NavBar' />
 <main>
     <Routes>
         <Route path="/" element={<Home />} />

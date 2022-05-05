@@ -4,7 +4,7 @@ import './style.css'
 function NavBar() {
   return (
 <>
-<nav className='nav-bar'>
+<nav className='nav-bar' role='NavBar'>
 <h1 className='navBar-title'>Zoomie</h1>
 </nav>
 </>
