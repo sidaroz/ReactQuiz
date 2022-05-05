@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FetchButton from "../../components/FetchButton/Index";
 
@@ -8,7 +8,7 @@ function QuizCompleted() {
   let score = useSelector((state) => state.score);
   const questions = useSelector((state) => state.questions);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   // Submits the score when it is called.
   async function submitScore() {
     let userDetails = {
@@ -25,7 +25,7 @@ function QuizCompleted() {
         mode: "no-cors",
       };
       const resp = await fetch(
-        "https://hookb.in/mZGZPe8ndjILnrqM8M0L",
+        "https://hookb.in/oXkpWa3NPrFYX7mgwgdw",
         options
       );
       console.log(resp);
@@ -35,15 +35,23 @@ function QuizCompleted() {
   }
   useEffect(() => {
     submitScore();
-    console.log("called on right page mate");
   }, []);
+
+  function resetQuiz() {
+    navigate("/setupquiz");
+    dispatch({
+      type: "NEW_QUIZ",
+    });
+  }
 
   return (
     <>
       <h1 className="score-title">
         {username} your score was: {score}
       </h1>
-      <FetchButton />
+      <button className="btn-home" onClick={resetQuiz}>
+        Start a new quiz
+      </button>
       <button className="btn-home" onClick={() => navigate("/leaderboards")}>
         {" "}
         Leaderboards

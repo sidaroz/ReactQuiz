@@ -19,25 +19,6 @@ function SetupQuiz() {
 
   const dispatch = useDispatch();
 
-  const refreshSettings = () => {
-    dispatch({
-      type: "SET_QUESTIONS",
-      questions: [],
-    });
-    dispatch({
-      type: "SET_SCORE",
-      score: 0,
-    });
-    dispatch({
-      type: "CHANGED_USERNAME",
-      username: "",
-    });
-  };
-  //useEffect hook with fetch of the categories from the API endpoint
-  useEffect(() => {
-    refreshSettings();
-  }, []);
-
   useEffect(() => {
     const apiUrl = "https://opentdb.com/api_category.php";
 
@@ -60,6 +41,7 @@ function SetupQuiz() {
   //functions to handle the events and update the state
   const handleUserNameChoice = (event) => {
     const lowerUsername = event.target.value.toLowerCase();
+
     const fixedUsername = lowerUsername.replace(
       lowerUsername[0],
       lowerUsername[0].toUpperCase()

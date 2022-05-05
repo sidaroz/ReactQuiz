@@ -15,10 +15,8 @@ function Questionaire() {
   const [questions, setQuestions] = useState([]);
   const [answerOptions, setAnswerOptions] = useState([]);
   const [showAnswers, setShowAnswers] = useState(false);
-  const [gameEnded, setGameEnded] = useState(false);
   const navigate = useNavigate();
 
-  const username = useSelector((state) => state.options.username);
   let score = useSelector((state) => state.score);
   const encodedQuestions = useSelector((state) => state.questions);
   const questionIndex = useSelector((state) => state.index);
@@ -123,22 +121,11 @@ function Questionaire() {
           });
         }, 1500);
       }
-      // if (questionIndex + 1 === questions.length) {
-      //   setTimeout(() => {
-      //     submitScore();
-      //   }, 2000);
-      // }
     }
 
     setShowAnswers(true);
   };
 
-  // useEffect(() => {
-  //   if (!question) {
-  //     submitScore();
-  //     console.log("this useeffect has run");
-  //   }
-  // }, []);
   const getClass = (option) => {
     if (!answerSelected) {
       return "";

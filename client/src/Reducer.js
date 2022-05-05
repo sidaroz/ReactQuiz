@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 const initState = {
   options: {
     username: ``,
@@ -79,6 +81,8 @@ const Reducer = (state = initState, action) => {
         ...state,
         score: action.score,
       };
+    case "NEW_QUIZ":
+      return initState;
     default:
       return state;
   }
