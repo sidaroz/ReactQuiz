@@ -1,0 +1,32 @@
+version: "3"
+services:
+  api:
+    image: node:latest
+    working_dir: /code
+    ports:
+      - 3000:3000
+    environment:
+      - PGUSER=postsuser123
+      - PGPASSWORD=passkey123
+      - PGHOST=db
+      - PGDATABASE=post_userdb
+      - PGPORT=5432
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: ./api
+        target: /code
+    command: bash -c "npm install && npm run test"
+
+  db:
+    image: postgres:latest
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+      - "./db/data.sql:/docker-entrypoint-initdb.d/data.sql"
+    environment:
+      - POSTGRES_DB=post_userdb
+      - POSTGRES_USER=postsuser123
+      - POSTGRES_PASSWORD=passkey123
+volumes:
+  dbdata:
