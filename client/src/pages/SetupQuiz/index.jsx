@@ -252,7 +252,6 @@ function SetupQuiz() {
 
         <div className="setquiz-buttons">
           <FetchButton />
-          <button>Start multiple players Quiz</button>
         </div>
       </div>
     );
