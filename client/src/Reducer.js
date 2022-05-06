@@ -1,5 +1,3 @@
-import { combineReducers } from "redux";
-
 const initState = {
   options: {
     username: ``,
