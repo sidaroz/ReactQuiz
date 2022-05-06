@@ -14,24 +14,6 @@ function Leaderboard() {
 
   function fetchUserScores() {
     console.log(fullData);
-    const column = Object.keys(fullData[0]).slice(1);
-
-    // const thData = () => {
-    //   return column.map((header, i) => {
-    //     if (header === "frequency") {
-    //       return (
-    //         <th className={header} key={i}>
-    //           questions answered
-    //         </th>
-    //       );
-    //     }
-    //     return (
-    //       <th className={header} key={i}>
-    //         {header}
-    //       </th>
-    //     );
-    //   });
-    // };
 
     const tdData = () => {
       return fullData.map((user, i) => {

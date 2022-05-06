@@ -43,7 +43,7 @@ function Questionaire() {
   };
 
   // This useEffect sorts out the timer for each question.
-  const [timeLeft, setTimeLeft] = useState(5);
+  const [timeLeft, setTimeLeft] = useState(100);
   useEffect(() => {
     // exit early when we reach 0
     if (timeLeft === 0) {
@@ -52,7 +52,7 @@ function Questionaire() {
       setTimeout(() => {
         setAnswerSelected(false);
         setShowAnswers(false);
-        setTimeLeft(5);
+        setTimeLeft(100);
         dispatch({
           type: "SET_INDEX",
           index: questionIndex + 1,
@@ -151,7 +151,9 @@ function Questionaire() {
           Question: {questionIndex + 1} / {questions.length}
         </p>
         <h2 className="question">{question.question}</h2>
-        <h2 className="timer question">{timeLeft}</h2>
+        <div className="background-timer">
+          <h2 className="timer ">{timeLeft}</h2>
+        </div>
       </div>
       <div className="answer-btn-grid">
         {answerOptions.map((answer, i) => (
