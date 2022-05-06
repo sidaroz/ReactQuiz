@@ -1,45 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Leaderboard.css";
 function Leaderboard() {
-  // const data = [
-  //   {
-  //     id: 1,
-  //     username: "Sidar",
-  //     score: 20,
-  //     frequency: 30,
-  //   },
-  //   { id: 2, username: "Luiz", score: 25, frequency: 27 },
-  // ];
-  async function fetchUserScores() {
-    const userData = await fetch("http://localhost:3005/users");
-    const fullData = await userData.json();
+  const [fullData, setFullData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userData = await fetch("http://localhost:3005/users");
+      const completeData = await userData.json();
+      setFullData(completeData);
+    };
+    fetchData();
+  }, []);
+
+  function fetchUserScores() {
     console.log(fullData);
     const column = Object.keys(fullData[0]).slice(1);
-    const thData = () => {
-      return column.map((header, i) => {
-        if (header === "frequency") {
-          return (
-            <th className={header} key={i}>
-              Games Played
-            </th>
-          );
-        }
-        return (
-          <th className={header} key={i}>
-            {header}
-          </th>
-        );
-      });
-    };
+
+    // const thData = () => {
+    //   return column.map((header, i) => {
+    //     if (header === "frequency") {
+    //       return (
+    //         <th className={header} key={i}>
+    //           questions answered
+    //         </th>
+    //       );
+    //     }
+    //     return (
+    //       <th className={header} key={i}>
+    //         {header}
+    //       </th>
+    //     );
+    //   });
+    // };
 
     const tdData = () => {
-      console.log(fullData[0].score);
-      return fullData.map((user) => {
+      return fullData.map((user, i) => {
         return (
           <tr>
-            {column.map((eachDataColumn) => {
-              return <td>{user[eachDataColumn]}</td>;
-            })}
+            <td>{`${i + 1}`}</td>
+            <td>{`${user.username}`}</td>
+            <td>{`${user.score}`}</td>
+            <td>{`${user.frequency}`}</td>
           </tr>
         );
       });
@@ -48,7 +49,12 @@ function Leaderboard() {
     return (
       <>
         <thead>
-          <tr>{thData()}</tr>
+          <tr>
+            <th className="username">Rank</th>
+            <th>Username</th>
+            <th>Score</th>
+            <th>Questions answered</th>
+          </tr>
         </thead>
         <tbody>{tdData()}</tbody>
       </>
@@ -59,7 +65,9 @@ function Leaderboard() {
     <div>
       <h1 className="leaderboard-title">Leaderboards</h1>
       <div className="table-main">
-        <table className="leaderboard-table">{fetchUserScores()}</table>
+        <table className="leaderboard-table">
+          {fullData.length > 1 && fetchUserScores()}
+        </table>
       </div>
     </div>
   );

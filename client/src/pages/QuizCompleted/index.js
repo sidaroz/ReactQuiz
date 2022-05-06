@@ -22,12 +22,8 @@ function QuizCompleted() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userDetails),
-        mode: "no-cors",
       };
-      const resp = await fetch(
-        "https://hookb.in/oXkpWa3NPrFYX7mgwgdw",
-        options
-      );
+      const resp = await fetch("http://localhost:3005/users", options);
       console.log(resp);
     } catch (error) {
       console.log(error);
