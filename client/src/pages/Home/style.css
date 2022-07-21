@@ -26,6 +26,7 @@ body {
   border-radius: 10px;
   border: none;
   color: #753998;
+  transition: var(--transition);
 }
 
 .btn-home:hover {

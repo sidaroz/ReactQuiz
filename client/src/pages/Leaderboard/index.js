@@ -5,7 +5,7 @@ function Leaderboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userData = await fetch("http://localhost:3005/users");
+      const userData = await fetch("https://zoomies-api.herokuapp.com/users/");
       const completeData = await userData.json();
       setFullData(completeData);
     };
@@ -13,8 +13,6 @@ function Leaderboard() {
   }, []);
 
   function fetchUserScores() {
-    console.log(fullData);
-
     const tdData = () => {
       return fullData.map((user, i) => {
         return (

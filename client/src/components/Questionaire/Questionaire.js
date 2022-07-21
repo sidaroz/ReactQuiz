@@ -43,7 +43,7 @@ function Questionaire() {
   };
 
   // This useEffect sorts out the timer for each question.
-  const [timeLeft, setTimeLeft] = useState(100);
+  const [timeLeft, setTimeLeft] = useState(20);
   useEffect(() => {
     // exit early when we reach 0
     if (timeLeft === 0) {
@@ -52,7 +52,7 @@ function Questionaire() {
       setTimeout(() => {
         setAnswerSelected(false);
         setShowAnswers(false);
-        setTimeLeft(100);
+        setTimeLeft(20);
         dispatch({
           type: "SET_INDEX",
           index: questionIndex + 1,
@@ -114,7 +114,7 @@ function Questionaire() {
           setAnswerSelected(false);
           setSelectedAnswer(null);
           setShowAnswers(false);
-          setTimeLeft(5);
+          setTimeLeft(20);
           dispatch({
             type: "SET_INDEX",
             index: questionIndex + 1,

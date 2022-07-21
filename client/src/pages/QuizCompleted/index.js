@@ -16,15 +16,16 @@ function QuizCompleted() {
       score: score,
       frequency: questions.length,
     };
-    console.log(userDetails);
     try {
       const options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userDetails),
       };
-      const resp = await fetch("http://localhost:3005/users", options);
-      console.log(resp);
+      const resp = await fetch(
+        "https://zoomies-api.herokuapp.com/users/",
+        options
+      );
     } catch (error) {
       console.log(error);
     }
