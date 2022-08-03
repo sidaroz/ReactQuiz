@@ -46,8 +46,7 @@ An online trivia quiz game where users can choose the category of the quiz, diff
 - Using different types of react hooks to make cleaner code
 - Using opendbt's Trivia API and using React to use specific parts of the API
 - Displaying leaderboards dynamically
-- Functionality on classes, allowing correct answers to show green and incorrect answers to show red
-- 
+- Functionality on classes, allowing correct answers to show green and incorrect answers to show red 
 
 ## Challenges
 
@@ -56,4 +55,5 @@ An online trivia quiz game where users can choose the category of the quiz, diff
 
 ## Future Features
 
-- Include an additional API which can include own questions.
+- Include an additional API which can include own questions
+- Allow multiple users to play one quiz together
