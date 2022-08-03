@@ -1,7 +1,67 @@
 button.correct {
-  background-color: rgb(53, 212, 53);
+  background-color: rgb(135, 219, 135);
+  color: white;
 }
 
 button.selected {
-  background-color: rgb(206, 58, 58);
+  background-color: rgb(206, 109, 109);
+  color: white;
+}
+
+.question-header {
+  margin-top: 10%;
+  background-color: white;
+  border-radius: 20px;
+  max-width: 80%;
+  margin-inline: auto;
+  opacity: 50%;
+  padding-bottom: 7px;
+}
+
+h2.question {
+  opacity: 100%;
+  color: rgb(170, 98, 238);
+}
+
+p {
+  padding-top: 10px;
+}
+
+button {
+  min-width: 15%;
+  font-size: 15px;
+}
+
+.score-title {
+  margin-top: 15%;
+  color: rgb(255, 255, 255);
+}
+
+.timer {
+  margin-top: 0;
+  color: white;
+}
+
+.background-timer {
+  background-color: rgb(87, 67, 105);
+  color: white;
+  text-align: center;
+  height: 30px;
+  width: 32px;
+  margin-inline: auto;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .question-grid {
+    margin-top: 20%;
+  }
+  .answer-btn-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .score-title {
+    margin-top: 60%;
+  }
 }

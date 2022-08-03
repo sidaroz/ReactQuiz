@@ -11,16 +11,14 @@ function SetupQuiz() {
   const questionCategory = useSelector(
     (state) => state.options.question_category
   );
-  const questionDifficulty = useSelector(
-    (state) => state.options.question_difficulty
-  );
   const numberOfQuestions = useSelector(
     (state) => state.options.amount_of_questions
   );
   const questionType = useSelector((state) => state.options.question_type);
+  const rangeSlider = document.querySelector(".slider");
 
   const dispatch = useDispatch();
-  //useEffect hook with fetch of the categories from the API endpoint
+
   useEffect(() => {
     const apiUrl = "https://opentdb.com/api_category.php";
 
@@ -42,9 +40,15 @@ function SetupQuiz() {
 
   //functions to handle the events and update the state
   const handleUserNameChoice = (event) => {
+    const lowerUsername = event.target.value.toLowerCase();
+
+    const fixedUsername = lowerUsername.replace(
+      lowerUsername[0],
+      lowerUsername[0].toUpperCase()
+    );
     dispatch({
       type: "CHANGED_USERNAME",
-      username: event.target.value,
+      username: fixedUsername,
     });
   };
 
@@ -86,12 +90,19 @@ function SetupQuiz() {
 
   function getSliderValue(e) {
     const rangeValue = document.querySelector(".slider").value;
+    const sliderTitle = document.querySelector(".demo");
     if (rangeValue === "1") {
-      document.querySelector(".demo").textContent = "Easy";
+      sliderTitle.textContent = "Easy";
+      sliderTitle.classList.add("easy");
+      sliderTitle.classList.remove("medium");
+      sliderTitle.classList.remove("hard");
     } else if (rangeValue === "2") {
-      document.querySelector(".demo").textContent = "Medium";
+      sliderTitle.textContent = "Medium";
+      sliderTitle.classList.add("medium");
+      sliderTitle.classList.remove("hard");
     } else if (rangeValue === "3") {
-      document.querySelector(".demo").textContent = "Hard";
+      sliderTitle.textContent = "Hard";
+      sliderTitle.classList.add("hard");
     }
     handleDifficultyChange(e);
   }
@@ -101,15 +112,24 @@ function SetupQuiz() {
     return (
       <div className="main-container">
         <div>
-          <h2>Username:</h2>
-          <input type="text" onChange={handleUserNameChoice} />
+          <h2 className="username-input">Username:</h2>
+          <input
+            className="input-for-user"
+            type="text"
+            onChange={handleUserNameChoice}
+            required
+          />
         </div>
 
         {/* ------Select Category DropDown------ */}
 
         <div>
           <h2>Quiz Category:</h2>
-          <select value={questionCategory} onChange={handleCategoryChoice}>
+          <select
+            className="category"
+            value={questionCategory}
+            onChange={handleCategoryChoice}
+          >
             <option>All</option>
 
             {options &&
@@ -125,6 +145,7 @@ function SetupQuiz() {
 
         <div className="range-slider-container">
           <h2>Difficulty level:</h2>
+          <span className="demo">Easy</span>
           <div className="slider-wraper">
             <input
               type="range"
@@ -141,8 +162,6 @@ function SetupQuiz() {
               <option value="2"></option>
               <option value="3"></option>
             </datalist>
-
-            <span className="demo">Easy</span>
           </div>
         </div>
         {/* rembember the value='0' */}
@@ -152,7 +171,11 @@ function SetupQuiz() {
         <div>
           <h2>Number of questions:</h2>
 
-          <select value={numberOfQuestions} onChange={handleNumberOfQuestions}>
+          <select
+            className="amount-questions"
+            value={numberOfQuestions}
+            onChange={handleNumberOfQuestions}
+          >
             <option value="1" key="amount-1">
               1
             </option>
@@ -191,7 +214,11 @@ function SetupQuiz() {
         <div>
           <h2>Select Question Type:</h2>
 
-          <select value={questionType} onChange={handleTypeChange}>
+          <select
+            value={questionType}
+            onChange={handleTypeChange}
+            className="question-type"
+          >
             <option value="" key="type-0">
               All
             </option>
@@ -207,7 +234,6 @@ function SetupQuiz() {
 
         <div className="setquiz-buttons">
           <FetchButton />
-          <button>Start multiple players Quiz</button>
         </div>
       </div>
     );

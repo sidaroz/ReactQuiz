@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-function FetchButton(props) {
+import "./FetchButton.css";
+// This fetches things
+function FetchButton() {
   const questionCategory = useSelector(
     (state) => state.options.question_category
   );
@@ -13,8 +14,6 @@ function FetchButton(props) {
     (state) => state.options.amount_of_questions
   );
   const questionType = useSelector((state) => state.options.question_type);
-
-
   const dispatch = useDispatch();
   const setLoading = (value) => {
     dispatch({
@@ -48,6 +47,7 @@ function FetchButton(props) {
     await fetch(apiUrl)
       .then((res) => res.json())
       .then((response) => {
+        console.log(response);
         setQuestions(response.results);
         setLoading(false);
       });
