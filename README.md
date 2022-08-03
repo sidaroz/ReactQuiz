@@ -39,6 +39,24 @@ An online trivia quiz game where users can choose the category of the quiz, diff
 - To kill server input `ctrl c` in the live terminal
 - To prune docker container first input `docker compose down` followed by `docker volume prune`
 
+## Technologies
+
+### Frontend
+
+- React
+- Redux
+- CSS
+- WebSockets
+- opendbt Trivia API
+
+### Backend
+
+- Node.js
+- Express
+- PostgreSQL
+- WebSockets
+- Docker
+
 ## Wins
 
 - Timer functionality that skips questions and displays the correct answer
